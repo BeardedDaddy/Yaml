@@ -1,0 +1,42 @@
+---
+definitions:
+  steps:
+    - steps: &Validate-Project
+      name: Validate Project Compilation
+      script:
+        - mvn validate
+      artifacts: &Project-artifacts
+        - target/**
+
+    - step: &Test-Compiled-Source-Code
+        name: Compile and Test the Source Code
+        script:
+          - mvn test
+        artifacts: *Project-artifacts
+
+    -step: &Test-and-Build
+        name: Test and Build Your Deployable Artifacts
+        script:
+          - mvn test install
+        artifacts: *Project-artifacts
+
+pipelines:
+  branches:
+    develop:
+      - step: *Validate-Project
+      - step: *Test-Compiled-Source-Code
+
+    master:
+      - step: *Validate-Project
+
+      - step:
+          <<: *Test-Compiled-Source-Code
+          name: Testing Project on Master Branch
+
+      - step:
+          <<: *Test-and-Build
+          name: Package Project on Master Branch
+          ongoing: false
+# On the above line (37) we are using the merge key to modify the "Test-and-Build" from line 17 to name it
+# "Package Project on Master Branch" and we are adding a mapped data with the key value of false.
+...
