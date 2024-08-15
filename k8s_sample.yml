@@ -24,4 +24,3 @@ spec:
           image: nickchase/rss-php-nginx:v1
           ports:
             - containerPort: 88
-...
