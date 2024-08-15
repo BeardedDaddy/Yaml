@@ -1,0 +1,20 @@
+---
+# The section below is a single key value pair.
+? This is a key with 
+  multi lines.
+# The above is the key.
+: this is the value of
+  the complex key
+# The above is the value.
+
+# The section below is a single key value pair.
+? - dev
+  - pre-production
+- production
+# The above is a complex key.
+: - https://example.dev.com
+  - https://exam.pre-prod.com
+  - https://example.prod.com
+# The above is the value of the keys
+
+...
